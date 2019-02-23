@@ -21,10 +21,12 @@ export class ListPage implements OnInit {
   ];
   public items: Array<{ title: string; note: string; icon: string }> = [];
   constructor() {
-    for (let i = 1; i < 11; i++) {
+    // their for loop that they wrote is generating a hard coded number if items in the array. 
+    for (let i = 1; i < 13; i++) {
       this.items.push({
         title: 'Item ' + i,
         note: 'This is item #' + i,
+        // the icons for the list items are randomly generated. 
         icon: this.icons[Math.floor(Math.random() * this.icons.length)]
       });
     }
