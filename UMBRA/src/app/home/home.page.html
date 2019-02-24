@@ -15,7 +15,10 @@
 
     </ion-label>
   </ion-list>
-  <ion-button shape="round" class="folder_button">
-      <ion-icon name="add-circle"></ion-icon>
+  <ion-button (click)="presentNewFolderAlert()" shape="round" class="folder_button">
+      <ion-icon name="folder"></ion-icon>
+  </ion-button>
+  <ion-button (click)="presentAddItemSheet()" shape="round" class="file_button">
+      <ion-icon name="document"></ion-icon>
   </ion-button>
 </ion-content>
