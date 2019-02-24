@@ -75,7 +75,7 @@ export class HomePage {
         handler: data => {
           console.log("New Folder Created!");
           this.tree.createNode("D", data.value);
-          location.reload();
+          // location.reload();
           // call new folder function, passing in title (data)
         }
       }]
@@ -94,14 +94,14 @@ export class HomePage {
       buttons: [{
         text: "Cancel",
         handler: data => {
-          console.log("Cancel clicked");
+          console.log("Cancel clickSed");
         }
       }, {
         text: 'ok',
         handler: data => {
           console.log("New File Created!" + data.value);
           this.tree.createNode("F", data.value);
-          location.reload();
+          // location.reload();
           // call new blank item function, passing in the title (data)
         }
       }]

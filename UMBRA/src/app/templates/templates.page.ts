@@ -10,9 +10,7 @@ export class TemplatesPage implements OnInit {
 
   items = [];
 
-  names = ["Title 1", "Title 2", "Title 3", "Title 4", "Title 5",
-    "Title 6", "Title 7", "Title 8", "Title 9", "Title 10", "Title 11",
-    "Title 12", "Title 13", "Title 14", "Title 15", "Title 16", "Title 17"];
+  names = ["To Do", "Recipe", "Workout", "Bullet Journal"];
 
 
   constructor(private alertCtrl: AlertController) {
