@@ -111,9 +111,46 @@ export class HomePage {
     });
     await newItemAlert.present();
   }
+
+
+  async testTreeFunc() {
+    var tree = this.testTree();
+    console.log(this.findNode(tree, "2"));
+
+  }
+
+  testTree() {
+    // create the tester tree
+    var testTree = new TreeBuilder();
+
+    // add a new node
+    var node1 = testTree.createNode("D", "Node1");
+    var node2 = testTree.createNode("F", "Node2");
+    var node3 = testTree.createNode("D", "Node3");
+    testTree.current = node1;
+    var node1_1 = testTree.createNode("F", "Node1_1");
+    return testTree;
+  }
+
+  preOrder(tree: Node, id: string) {
+    if (tree == null) return;
+    if (tree.id == id) return tree.title;
+    this.preOrder(tree.child, id);
+    this.preOrder(tree.forward, id);
+  }
+
+  findNode(tree: TreeBuilder, id: string) {
+    var temp: Node = tree.root;
+    var test = this.preOrder(temp, id);
+    if (test == null) {
+      return null;
+    } else {
+      return test;
+    }
+  }
 }
 
-export class TreeBuilder {
+class TreeBuilder {
 
   public root: Node;
   public current: Node;
@@ -139,19 +176,19 @@ export class TreeBuilder {
     this.node_counter = 0;
 
   }
-  
 
-//   // methods for the tree. 
+
+  //   // methods for the tree. 
 
   public createNode(newType: string, newTitle: string) {
     var newNode: Node;
-    
+
     // setting the forward pointer to null
     newNode.forward = null;
     // setting the parent to the current node
     newNode.parent = this.current;
     // setting the backwards link
-    if (this.current.child == null) { 
+    if (this.current.child == null) {
       // if there's no child, set child to new and backwards to null
       newNode.backward = null;
       this.current.child = newNode;
@@ -170,7 +207,7 @@ export class TreeBuilder {
 
     //set id and other strings to the given parameters
     this.node_counter++;
-    newNode.id = this.node_counter.toString(); 
+    newNode.id = this.node_counter.toString();
     newNode.type = newType;
     newNode.title = newTitle;
 
@@ -178,17 +215,7 @@ export class TreeBuilder {
     return newNode;
   }
 
+
+
 }
 
-export function testTree() {
-  // create the tester tree
-  var testTree = new TreeBuilder();
-
-  // add a new node
-  var node1 = testTree.createNode("D", "Node1");
-  var node2 = testTree.createNode("F", "Node2");
-  var node3 = testTree.createNode("D", "Node3");
-  testTree.current = node1;
-  var node1_1 = testTree.createNode("F", "Node1_1");
-  
-}
