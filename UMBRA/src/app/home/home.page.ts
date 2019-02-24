@@ -3,7 +3,8 @@ import { ActionSheetController, AlertController, IonInfiniteScroll } from '@ioni
 import { namespaceHTML } from '@angular/core/src/render3';
 import { RouteReuseStrategy } from '@angular/router';
 import { Component } from '@angular/core';
-import { TreeNode, Data } from '../app.module';
+import { Node } from '../app.module';
+import { ActionSheetController, AlertController } from '@ionic/angular';
 
 
 @Component({
@@ -122,55 +123,80 @@ export class VirtualScrollPageComponent {
 export class TreeBuilder {
 
 
-  public root: TreeNode<Data>;
-
+  public root: Node;
+  public current: Node;
+  public node_counter: number;
 
   constructor() {
 
     // // initializing the data in the root node of the tree. 
+    // since the tree is empty, all of root is null
+    this.root.backward = null;
+    this.root.forward = null;
+    this.root.parent = null;
+    this.root.child = null;
 
-    this.root = new TreeNode<Data>(null, null, null, null);
+    // d is for directory type, the name of the directory is home, and it's the initial node so the id is set to 0
+    this.root.type = "D";
+    this.root.title = "Home";
+    this.root.id = "0";
+
+    // the current will start at the root, since it's the only created node
+    this.current = this.root;
+
+    this.node_counter = 0;
 
   }
   
 
   // methods for the tree. 
 
-  public createNode(newID: string, newType: string, newTitle: string) {
+  public createNode(newType: string, newTitle: string) {
+    var newNode: Node;
+    
+    // setting the forward pointer to null
+    newNode.forward = null;
+    // setting the parent to the current node
+    newNode.parent = this.current;
+    // setting the backwards link
+    if (this.current.child == null) { 
+      // if there's no child, set child to new and backwards to null
+      newNode.backward = null;
+      this.current.child = newNode;
+    }
+    else {
+      // if there is a child of current, then we are going to find the first child that has no sibling forward, and then set newnode to forward and it's backward to the temp node with no next sibling
+      var temp = this.current.child;
+      while (temp.forward != null) {
+        temp = temp.forward;
+      }
+      temp.forward = newNode;
+      newNode.backward = temp;
+    }
+    // child is always set to null for new nodes
+    newNode.child = null;
 
-    var testData: Data;// { id = '42',  type = 'folder', title = 'French Toast'  };
-    testData.id = newID;
-    testData.type = newType;
-    testData.title = newTitle;
+    //set id and other strings to the given parameters
+    this.node_counter++;
+    newNode.id = this.node_counter.toString(); 
+    newNode.type = newType;
+    newNode.title = newTitle;
 
-    //this.root.setValue( testData );
-
-
+    // return the new created node
+    return newNode;
   }
 
+}
 
+export function testTree() {
+  // create the tester tree
+  var testTree = new TreeBuilder();
 
-  /**
-   * testTree
-   */
-  public testTree() {
-    // set sum sstuff and see if it works. 
-
-    var testTree = new TreeBuilder();
-
-    var testData: Data;// { id = '42',  type = 'folder', title = 'French Toast'  };
-    testData.id = '42';
-    testData.type = 'Folder';
-    testData.title = 'French Toast';
-
-    var testTreeNode = new TreeNode<Data>(testData, null, null, null);
-
-
-    testTree.root.setValue(testData);
-    //testTree.root.setValue()
-
-
-
-  }
-
+  // add a new node
+  var node1 = testTree.createNode("D", "Node1");
+  var node2 = testTree.createNode("F", "Node2");
+  var node3 = testTree.createNode("D", "Node3");
+  testTree.current = node1;
+  var node1_1 = testTree.createNode("F", "Node1_1");
+  
 }

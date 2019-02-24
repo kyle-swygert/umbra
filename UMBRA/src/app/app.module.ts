@@ -30,76 +30,85 @@ export class AppModule {}
 
 export type Container<T> = { value: T };
 
-export class TreeNode<T> {
-
-
-  // for a folder, the value will be empty and the child will not bw null. 
-  // for a file, the value will be populated, and will not have a child. 
-
-
-  private value: Data; 
-  private backward: TreeNode<T>;
-  private forward: TreeNode<T>;
-  private child: TreeNode<T>;
-
-
-  constructor( newValue: Data, newBackward: TreeNode<T>, newForward: TreeNode<T>, newChild: TreeNode<T>) {
-
-    this.value = newValue;
-    this.backward = newBackward;
-    this.forward = newForward;
-    this.child = newChild;    
-
-  }
-
-
-  // methods for the type. 
- 
-  // setters and getters
-  public set setBackward( newBackward: TreeNode<T>) {
-    this.backward = newBackward;
-  }
-  
-  public get getBackward() : TreeNode<T> {
-    return this.backward;
-  }
-  
-  public set setForward( newForward: TreeNode<T>) {
-    this.forward = newForward;
-  }
-  
-  public get getForward() : TreeNode<T> {
-    return this.forward;
-  }
-  
-  public set setChild( newChild: TreeNode<T>) {
-    this.child = newChild;
-  }
-
-  public get getChild() : TreeNode<T> {
-    return this.child;
-  }
-  
-  public set setValue( newValue: Data) {
-    this.value = newValue;
-  }
-  
-  public get getValue() : Data {
-    return this.value;
-  }
-  
-  
-
+export type Connections = {
 
 }
 
-export type LinkedList<T> = T & { next: LinkedList<T>, previous: LinkedList<T>};
+// export class TreeNode {
 
-export interface Data {
 
+//   // for a folder, the value will be empty and the child will not bw null. 
+//   // for a file, the value will be populated, and will not have a child. 
+
+
+//   private value: Data; 
+//   private backward?: TreeNode;
+//   private forward?: TreeNode;
+//   private child?: TreeNode;
+//   private parent?: TreeNode;
+
+//   constructor() {
+//     // setting the forward to NULL since this is a new node
+
+
+//   }
+
+
+//   // methods for the type. 
+ 
+//   // setters and getters
+//   public set setBackward( newBackward: TreeNode) {
+//     this.backward = newBackward;
+//   }
+  
+//   public get getBackward() : TreeNode {
+//     return this.backward;
+//   }
+  
+//   public set setForward( newForward: TreeNode) {
+//     this.forward = newForward;
+//   }
+  
+//   public get getForward() : TreeNode {
+//     return this.forward;
+//   }
+  
+//   public set setChild( newChild: TreeNode) {
+//     this.child = newChild;
+//   }
+
+//   public get getChild() : TreeNode {
+//     return this.child;
+//   }
+  
+//   public set setParent( newParent: TreeNode) {
+//     this.parent = newParent;
+//   }
+
+//   public get getParent() : TreeNode {
+//     return this.parent;
+//   }
+
+//   public set setValue( newValue: Data) {
+//     this.value = newValue;
+//   }
+  
+//   public get getValue() : Data {
+//     return this.value;
+//   }
+  
+  
+
+
+// }
+
+
+export interface Node {
+  backward?: Node;
+  forward?: Node;
+  child?: Node;
+  parent?: Node;
   type: string, 
   id: string,
   title: string;
-  //content: LinkedList<Node>;
-
 }
