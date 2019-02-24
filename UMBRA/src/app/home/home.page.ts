@@ -2,9 +2,7 @@ import { Component, ViewChild, OnInit } from '@angular/core';
 import { ActionSheetController, AlertController, IonInfiniteScroll } from '@ionic/angular';
 import { namespaceHTML } from '@angular/core/src/render3';
 import { RouteReuseStrategy } from '@angular/router';
-import { Component } from '@angular/core';
 import { Node } from '../app.module';
-import { ActionSheetController, AlertController } from '@ionic/angular';
 
 
 @Component({
@@ -115,13 +113,7 @@ export class HomePage {
   }
 }
 
-// export class TreeBuilder {
-
-
-//   public root: TreeNode<Data>;
-
-
-//   constructor() {
+export class TreeBuilder {
 
   public root: Node;
   public current: Node;
