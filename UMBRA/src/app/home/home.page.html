@@ -1,5 +1,3 @@
-
-
 <ion-header>
   <ion-toolbar>
     <ion-buttons slot="start">
@@ -12,24 +10,22 @@
 </ion-header>
 
 <ion-content>
-  <ion-button (click)="testTreeFunc()" shape="round" class="folder_button">
-    <ion-icon name="folder"></ion-icon>
-  </ion-button>
-  <!-- <ion-virtual-scroll [items]="items">
+
+  <ion-virtual-scroll [items]="items">
     <ion-item *virtualItem="let item">
-      Item: {{ item }}
+      Item: {{ item.name }}
     </ion-item>
-  </ion-virtual-scroll> -->
+  </ion-virtual-scroll>
 
 </ion-content>
 
 <ion-footer>
-    <ion-item>
-      <ion-button (click)="presentNewFolderAlert()" shape="round" class="folder_button">
-        <ion-icon name="folder"></ion-icon>
-      </ion-button>
-      <ion-button (click)="presentAddItemSheet()" shape="round" class="file_button">
-        <ion-icon name="document"></ion-icon>
-      </ion-button>
-    </ion-item>
-  </ion-footer>
+  <ion-item>
+    <ion-button (click)="presentNewFolderAlert()" shape="round" class="folder_button">
+      <ion-icon name="folder"></ion-icon>
+    </ion-button>
+    <ion-button (click)="presentAddItemSheet()" shape="round" class="file_button">
+      <ion-icon name="document"></ion-icon>
+    </ion-button>
+  </ion-item>
+</ion-footer>

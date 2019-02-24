@@ -10,15 +10,19 @@
 </ion-header>
 
 <ion-content padding>
-  <ion-list>
-    <ion-item button>
-      <ion-label>To-Do List</ion-label>
+
+  <ion-virtual-scroll [items]="items">
+    <ion-item *virtualItem="let item">
+      Templates: {{ item.name }}
     </ion-item>
-    <ion-item button>
-      <ion-label>Recipes</ion-label>
-    </ion-item>
-    <ion-item button>
-      <ion-label>Workout</ion-label>
-    </ion-item>
-  </ion-list>
+  </ion-virtual-scroll>
+
 </ion-content>
+
+<ion-footer>
+    <ion-item>
+      <ion-button (click)="AddTemplateAlert()" shape="round" class="file_button">
+        <ion-icon name="add-circle"></ion-icon>
+      </ion-button>
+    </ion-item>
+  </ion-footer>
