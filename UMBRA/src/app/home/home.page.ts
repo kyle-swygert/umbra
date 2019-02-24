@@ -1,3 +1,6 @@
+import { Component, ViewChild, OnInit } from '@angular/core';
+import { ActionSheetController, AlertController, IonInfiniteScroll } from '@ionic/angular';
+import { namespaceHTML } from '@angular/core/src/render3';
 import { RouteReuseStrategy } from '@angular/router';
 import { Component } from '@angular/core';
 import { TreeNode, Data } from '../app.module';
@@ -9,7 +12,25 @@ import { TreeNode, Data } from '../app.module';
   styleUrls: ['home.page.scss'],
 })
 export class HomePage {
-  constructor(private viewSheet: ActionSheetController, private alertCtrl: AlertController) { }
+
+  items = [];
+
+  names = ["Title 1", "Title 2", "Title 3", "Title 4", "Title 5",
+    "Title 6", "Title 7", "Title 8", "Title 9", "Title 10", "Title 11",
+    "Title 12", "Title 13", "Title 14", "Title 15", "Title 16", "Title 17"];
+
+  constructor(private viewSheet: ActionSheetController, private alertCtrl: AlertController) {
+    for (let i = 0; i < this.names.length; i++) {
+      this.items.push({
+        name: this.names[i],
+        content: "Content"
+      });
+    }
+  }
+
+
+
+
 
   async presentAddItemSheet() {
 
@@ -91,6 +112,10 @@ export class HomePage {
     });
     await newItemAlert.present();
   }
+}
+
+export class VirtualScrollPageComponent {
+
 }
 
 
