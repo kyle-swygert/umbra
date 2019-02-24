@@ -4,6 +4,7 @@ import { ActionSheetController, AlertController, IonInfiniteScroll } from '@ioni
 import { namespaceHTML } from '@angular/core/src/render3';
 import { RouteReuseStrategy } from '@angular/router';
 import { findNode } from '@angular/compiler';
+import { Tree } from '@angular/router/src/utils/tree';
 
 
 @Component({
@@ -15,22 +16,13 @@ export class HomePage {
 
   items = [];
 
-  names = ["Title 1", "Title 2", "Title 3", "Title 4", "Title 5",
-    "Title 6", "Title 7", "Title 8", "Title 9", "Title 10", "Title 11",
-    "Title 12", "Title 13", "Title 14", "Title 15", "Title 16", "Title 17"];
+  tree = new TreeBuilder();
 
   constructor(private viewSheet: ActionSheetController, private alertCtrl: AlertController) {
-    for (let i = 0; i < this.names.length; i++) {
-      this.items.push({
-        name: this.names[i],
-        content: "Content"
-      });
-    }
+
+    this.items = this.collectChildren(this.tree.current);
+    
   }
-
-
-
-
 
   async presentAddItemSheet() {
 
@@ -71,7 +63,7 @@ export class HomePage {
     const newFolderAlert = await this.alertCtrl.create({
       header: 'New Folder Name',
       inputs: [{
-        name: 'Folder Name',
+        name: 'value',
         placeholder: 'New Folder',
       }],
       buttons: [{
@@ -94,8 +86,9 @@ export class HomePage {
     const newItemAlert = await this.alertCtrl.create({
       header: "New Item Name",
       inputs: [{
-        name: "Item Name",
+        name: "value",
         placeholder: "New Item",
+        
       }],
       buttons: [{
         text: "Cancel",
@@ -105,7 +98,9 @@ export class HomePage {
       }, {
         text: 'ok',
         handler: data => {
-          console.log("New File Created!");
+          console.log("New File Created!" + data.value);
+          this.tree.createNode("F", data.value);
+          location.reload();
           // call new blank item function, passing in the title (data)
         }
       }]
@@ -182,6 +177,16 @@ export class HomePage {
     } else {
       return test;
     }
+  }
+
+  collectChildren(cur: Node) {
+    var children = [];
+    var temp: Node = cur.child;
+    while(temp != null){
+      children.push(temp);
+      temp = temp.forward;
+    }
+    return children;
   }
 }
 
