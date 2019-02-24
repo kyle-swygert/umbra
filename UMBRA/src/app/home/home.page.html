@@ -12,12 +12,14 @@
 </ion-header>
 
 <ion-content>
-
-  <ion-virtual-scroll [items]="items">
+  <ion-button (click)="testTree()" shape="round" class="folder_button">
+    <ion-icon name="folder"></ion-icon>
+  </ion-button>
+  <!-- <ion-virtual-scroll [items]="items">
     <ion-item *virtualItem="let item">
       Item: {{ item }}
     </ion-item>
-  </ion-virtual-scroll>
+  </ion-virtual-scroll> -->
 
 </ion-content>
 
