@@ -1,6 +1,6 @@
 import { Node } from './../app.module';
 import { Component, ViewChild, OnInit } from '@angular/core';
-import { ActionSheetController, AlertController, IonInfiniteScroll } from '@ionic/angular';
+import { ActionSheetController, AlertController, NavController, IonInfiniteScroll } from '@ionic/angular';
 import { namespaceHTML } from '@angular/core/src/render3';
 import { RouteReuseStrategy } from '@angular/router';
 import { findNode } from '@angular/compiler';
@@ -191,7 +191,7 @@ export class HomePage {
   }
 }
 
-class TreeBuilder {
+export class TreeBuilder {
 
   public root: Node;
   public current: Node;

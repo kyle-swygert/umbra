@@ -13,6 +13,7 @@ const routes: Routes = [
   },
   { path: 'templates', loadChildren: './templates/templates.module#TemplatesPageModule' },
   { path: 'about', loadChildren: './about/about.module#AboutPageModule' },
+  { path: 'home/:id', loadChildren: './detail/detail.module#DetailPageModule' },
 ];
 
 @NgModule({
