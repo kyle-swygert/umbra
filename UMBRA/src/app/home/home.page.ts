@@ -160,15 +160,9 @@ class TreeBuilder {
 
     // // initializing the data in the root node of the tree. 
     // since the tree is empty, all of root is null
-    this.root.backward = null;
-    this.root.forward = null;
-    this.root.parent = null;
-    this.root.child = null;
+    this.root = {type: "D", title: "Home", id: "0", backward: null, forward: null, parent:null, child:null};
 
     // d is for directory type, the name of the directory is home, and it's the initial node so the id is set to 0
-    this.root.type = "D";
-    this.root.title = "Home";
-    this.root.id = "0";
 
     // the current will start at the root, since it's the only created node
     this.current = this.root;
@@ -182,16 +176,13 @@ class TreeBuilder {
 
   public createNode(newType: string, newTitle: string) {
     var newNode: Node;
-
-    // setting the forward pointer to null
-    newNode.forward = null;
-    // setting the parent to the current node
-    newNode.parent = this.current;
+    
     // setting the backwards link
     if (this.current.child == null) {
       // if there's no child, set child to new and backwards to null
-      newNode.backward = null;
       this.current.child = newNode;
+      newNode = {forward: null, parent: this.current, backward: null, child:null, id:this.node_counter.toString(), title:newTitle, type:newType};
+
     }
     else {
       // if there is a child of current, then we are going to find the first child that has no sibling forward, and then set newnode to forward and it's backward to the temp node with no next sibling
@@ -200,16 +191,13 @@ class TreeBuilder {
         temp = temp.forward;
       }
       temp.forward = newNode;
-      newNode.backward = temp;
+      newNode = {forward: null, parent: this.current, backward: temp, child:null, id:this.node_counter.toString(), title:newTitle, type:newType};
+
     }
     // child is always set to null for new nodes
-    newNode.child = null;
 
     //set id and other strings to the given parameters
     this.node_counter++;
-    newNode.id = this.node_counter.toString();
-    newNode.type = newType;
-    newNode.title = newTitle;
 
     // return the new created node
     return newNode;
