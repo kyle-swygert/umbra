@@ -115,13 +115,13 @@ export class HomePage {
   }
 }
 
-export class VirtualScrollPageComponent {
-
-}
+// export class TreeBuilder {
 
 
-export class TreeBuilder {
+//   public root: TreeNode<Data>;
 
+
+//   constructor() {
 
   public root: Node;
   public current: Node;
@@ -149,7 +149,7 @@ export class TreeBuilder {
   }
   
 
-  // methods for the tree. 
+//   // methods for the tree. 
 
   public createNode(newType: string, newTitle: string) {
     var newNode: Node;
