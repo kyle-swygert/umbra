@@ -1,8 +1,9 @@
+import { Node } from './../app.module';
 import { Component, ViewChild, OnInit } from '@angular/core';
 import { ActionSheetController, AlertController, IonInfiniteScroll } from '@ionic/angular';
 import { namespaceHTML } from '@angular/core/src/render3';
 import { RouteReuseStrategy } from '@angular/router';
-import { Node } from '../app.module';
+import { findNode } from '@angular/compiler';
 
 
 @Component({
@@ -115,6 +116,8 @@ export class HomePage {
 
   async testTreeFunc() {
     var tree = this.testTree();
+    var temp = tree;
+    // this.findNode(temp, "2");
     console.log(this.findNode(tree, "2"));
 
   }
@@ -133,15 +136,47 @@ export class HomePage {
   }
 
   preOrder(tree: Node, id: string) {
-    if (tree == null) return;
-    if (tree.id == id) return tree.title;
+    if (tree == null){
+      console.log("returning...");
+      return;
+    }
+
     this.preOrder(tree.child, id);
     this.preOrder(tree.forward, id);
+    console.log("cur id: " + tree.id)
+
+
+  }
+
+  searchTree(tree: Node, id: string) {
+    console.log("in search.");
+
+    if (tree != null) {
+      console.log("cur id = " + tree.id);
+      if (tree.id == id) {
+        console.log("FOUND!!!");
+        return tree.id;
+      } else {
+
+        var foundNode = this.searchTree(tree.child, id);
+
+        if (foundNode == null) {
+          foundNode = this.searchTree(tree.forward, id);
+        }
+        return foundNode;
+      }
+    } else {
+      console.log("not found yet");
+      return null;
+    }
   }
 
   findNode(tree: TreeBuilder, id: string) {
+    console.log("entered findnode");
     var temp: Node = tree.root;
-    var test = this.preOrder(temp, id);
+    // this.preOrder(temp, id);
+    var test = this.searchTree(temp, id);
+    console.log("test: " + test);
     if (test == null) {
       return null;
     } else {
@@ -160,7 +195,7 @@ class TreeBuilder {
 
     // // initializing the data in the root node of the tree. 
     // since the tree is empty, all of root is null
-    this.root = {type: "D", title: "Home", id: "0", backward: null, forward: null, parent:null, child:null};
+    this.root = { type: "D", title: "Home", id: "0", backward: null, forward: null, parent: null, child: null };
 
     // d is for directory type, the name of the directory is home, and it's the initial node so the id is set to 0
 
@@ -176,12 +211,12 @@ class TreeBuilder {
 
   public createNode(newType: string, newTitle: string) {
     var newNode: Node;
-    
+
     // setting the backwards link
     if (this.current.child == null) {
       // if there's no child, set child to new and backwards to null
+      newNode = { forward: null, parent: this.current, backward: null, child: null, id: this.node_counter.toString(), title: newTitle, type: newType };
       this.current.child = newNode;
-      newNode = {forward: null, parent: this.current, backward: null, child:null, id:this.node_counter.toString(), title:newTitle, type:newType};
 
     }
     else {
@@ -190,20 +225,18 @@ class TreeBuilder {
       while (temp.forward != null) {
         temp = temp.forward;
       }
+      newNode = { forward: null, parent: this.current, backward: temp, child: null, id: this.node_counter.toString(), title: newTitle, type: newType };
       temp.forward = newNode;
-      newNode = {forward: null, parent: this.current, backward: temp, child:null, id:this.node_counter.toString(), title:newTitle, type:newType};
 
     }
     // child is always set to null for new nodes
-
+    console.log("New node ID: " + newNode.id);
     //set id and other strings to the given parameters
     this.node_counter++;
 
     // return the new created node
     return newNode;
   }
-
-
 
 }
 
