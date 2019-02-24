@@ -4,7 +4,6 @@ import { ActionSheetController, AlertController, IonInfiniteScroll } from '@ioni
 import { namespaceHTML } from '@angular/core/src/render3';
 import { RouteReuseStrategy } from '@angular/router';
 import { findNode } from '@angular/compiler';
-import { Tree } from '@angular/router/src/utils/tree';
 
 
 @Component({
@@ -75,6 +74,8 @@ export class HomePage {
         text: 'ok',
         handler: data => {
           console.log("New Folder Created!");
+          this.tree.createNode("D", data.value);
+          location.reload();
           // call new folder function, passing in title (data)
         }
       }]
@@ -235,7 +236,7 @@ class TreeBuilder {
 
     }
     // child is always set to null for new nodes
-    console.log("New node ID: " + newNode.id);
+    console.log("New node with ID: " + newNode.id + " of type: " + newNode.type);
     //set id and other strings to the given parameters
     this.node_counter++;
 
